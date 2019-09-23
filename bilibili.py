@@ -917,6 +917,7 @@ class Bilibili:
                 response = self._requests("get", url)
                 if response and response.get("code") == 0 and response['data']['activityInfoVO']['serverTime'] >= response['data']['activityInfoVO']['startTime'] if response['data']['activityInfoVO'] else True:
                     break
+                time.sleep(1)     # 建议这里暂停1秒钟，防止查得太快导致服务器判断为异常请求
             timestamp = time.time()
             in_stock = False
             while True:
