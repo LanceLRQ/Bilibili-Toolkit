@@ -1443,7 +1443,7 @@ def main():
             for pair in line.strip(";").split(";"):
                 if len(pair.split("=")) == 2:
                     key, value = pair.split("=")
-                    pairs[key] = value
+                    pairs[key.strip()] = value.strip()
             password = all(key in pairs for key in ["username", "password"])
             token = all(key in pairs for key in ["access_token", "refresh_token"])
             cookie = all(key in pairs for key in ["bili_jct", "DedeUserID", "DedeUserID__ckMd5", "sid", "SESSDATA"])
