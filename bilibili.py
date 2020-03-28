@@ -40,7 +40,7 @@ from urllib import parse
 __author__ = "Hsury"
 __email__ = "i@hsury.com"
 __license__ = "SATA"
-__version__ = "2019.9.15"
+__version__ = "2019.12.22"
 
 class Bilibili:
     app_key = "1d8b6e7d45233436"
@@ -65,7 +65,7 @@ class Bilibili:
 
     def __init__(self, https=True, queue=None):
         self._session = requests.Session()
-        self._session.headers.update({'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.75 Safari/537.36"})
+        self._session.headers.update({'User-Agent': "Mozilla/5.0 BiliDroid/5.51.1 (bbcallen@gmail.com)"})
         self.__queue = queue
         self.get_cookies = lambda: self._session.cookies.get_dict(domain=".bilibili.com")
         self.get_csrf = lambda: self.get_cookies().get("bili_jct", "")
@@ -234,6 +234,9 @@ class Bilibili:
                                 if not self.set_proxy():
                                     time.sleep(10)
                                 break
+                        elif response['code'] == -449:
+                            time.sleep(1)
+                            response = self._requests("post", url, data=payload, headers=headers)
                         elif response['code'] == 0 and response['data']['status'] == 0:
                             for cookie in response['data']['cookie_info']['cookies']:
                                 self._session.cookies.set(cookie['name'], cookie['value'], domain=".bilibili.com")
@@ -1472,9 +1475,9 @@ def main():
                 os.system(f"{prefix}yum -y install chromedriver")
         elif platform.system() == "Windows":
             if not os.path.exists("chrome-win\\chrome.exe"):
-                decompress(download("https://npm.taobao.org/mirrors/chromium-browser-snapshots/Win/686378/chrome-win.zip"))
+                decompress(download("https://npm.taobao.org/mirrors/chromium-browser-snapshots/Win/706915/chrome-win.zip"))
             if not os.path.exists("chromedriver.exe"):
-                decompress(download("https://npm.taobao.org/mirrors/chromedriver/78.0.3904.11/chromedriver_win32.zip"))
+                decompress(download("https://npm.taobao.org/mirrors/chromedriver/79.0.3945.36/chromedriver_win32.zip"))
         else:
             print("会员购抢购组件不支持在当前平台上运行")
             config['mall_rush']['enable'] = False

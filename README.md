@@ -5,8 +5,9 @@
 <h1 align="center">- Bilibili Toolkit -</h1>
 
 <p align="center">
-<img src="https://img.shields.io/badge/version-2019.9.15-green.svg?longCache=true&style=for-the-badge">
+<img src="https://img.shields.io/badge/version-2019.12.22-green.svg?longCache=true&style=for-the-badge">
 <img src="https://img.shields.io/badge/license-SATA-blue.svg?longCache=true&style=for-the-badge">
+<img src="https://img.shields.io/travis/com/Hsury/Bilibili-Toolkit?style=for-the-badge">
 </p>
 
 <h4 align="center">🛠️ 哔哩哔哩（B站）辅助工具箱，支持Cookie/Token/Password融合持久化登录与多用户操作</h4>
@@ -19,7 +20,7 @@
 
 |组件                |版本           |描述                          |
 |--------------------|---------------|------------------------------|
-|login               |2019/9/15      |登录                          |
+|login               |2019/12/22     |登录                          |
 |get_user_info       |2019/9/15      |获取用户信息                  |
 |set_privacy         |2018/7/24      |修改隐私设置                  |
 |silver_to_coin      |2018/8/8       |银瓜子兑换硬币                |
@@ -46,7 +47,13 @@
 
 ## 使用指南
 
-### 源代码版本（推荐）
+### 二进制版本
+
+从[Release页面](https://github.com/Hsury/Bilibili-Toolkit/releases)下载并解压与您的平台适配的压缩包，修改默认配置文件config.toml后运行可执行文件bilibili即可
+
+*若要加载非默认配置文件，将其路径作为命令行参数传入即可*
+
+### 源代码版本
 
 1. 克隆或[下载](https://github.com/Hsury/Bilibili-Toolkit/archive/master.zip)本代码仓库，并修改默认配置文件config.toml
 
@@ -59,7 +66,7 @@ nano config.toml
 2. 安装Python 3.6/3.7，并使用pip安装依赖
 
 ```
-pip install -r requirements.txt -U
+pip install -r requirements.txt -U -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 3. 启动脚本
@@ -68,11 +75,19 @@ pip install -r requirements.txt -U
 python bilibili.py
 ```
 
-### 二进制版本
+### Docker版本
 
-从[Release页面](https://github.com/Hsury/Bilibili-Toolkit/releases)下载并解压与您的平台适配的压缩包，修改默认配置文件config.toml后运行可执行文件bilibili即可
+1. 安装Docker
 
-*若要加载非默认配置文件，将其路径作为命令行参数传入即可*
+2. [下载](https://raw.githubusercontent.com/Hsury/Bilibili-Toolkit/master/config.toml)默认配置文件config.toml并根据需求修改
+
+3. 启动容器，并挂载配置文件
+
+```
+docker run --rm -it -v [YOUR PATH TO CONFIG.TOML]:/app/config.toml zsnmwy/bilibili-toolkit
+```
+
+*若要加载代理池，补充参数`-v [YOUR PATH TO PROXY.TXT]:/app/proxy.txt`以挂载代理列表文件*
 
 ## 图形验证码识别API
 
